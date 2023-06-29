@@ -1,3 +1,4 @@
+import 'package:fitnextx/constants/themes.dart';
 import 'package:flutter/material.dart';
 
 import 'utils/route.dart';
@@ -14,8 +15,7 @@ class FitnestX extends StatelessWidget {
     return MaterialApp.router(
       title: 'FitnestX',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          textButtonTheme: TextButtonThemeData(style: TextButton.styleFrom())),
+      theme: AppThemes.lightTheme,
       routerConfig: router,
     );
   }
