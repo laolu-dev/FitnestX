@@ -1,4 +1,4 @@
-import 'package:fitnextx/constants/themes.dart';
+import 'constants/themes.dart';
 import 'package:flutter/material.dart';
 
 import 'utils/route.dart';

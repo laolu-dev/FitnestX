@@ -1,5 +1,7 @@
-import 'package:fitnextx/features/onboarding/screens/splash.dart';
+import '../features/onboarding/onboarding.dart';
 import 'package:go_router/go_router.dart';
+
+import '../features/onboarding/splash.dart';
 
 final _router = GoRouter(
   routes: [
@@ -7,6 +9,11 @@ final _router = GoRouter(
       path: '/',
       name: 'splash',
       builder: (context, _) => const Splash(),
+    ),
+     GoRoute(
+      path: '/onboard',
+      name: 'onboard',
+      builder: (context, _) => const Onboarding(),
     ),
   ],
 );

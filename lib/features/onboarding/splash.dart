@@ -1,7 +1,8 @@
-import 'package:fitnextx/constants/assets.dart';
-import 'package:fitnextx/constants/colors.dart';
-import 'package:fitnextx/utils/widgets/button.dart';
+import '../../constants/assets.dart';
+import '../../constants/colors.dart';
+import '../../utils/widgets/button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -19,10 +20,7 @@ class _SplashState extends State<Splash> {
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              AppColor.pGradTwo,
-              AppColor.pGradOne,
-            ],
+            colors: AppColor.gradientOne
           ),
         ),
         child: Column(
@@ -33,7 +31,7 @@ class _SplashState extends State<Splash> {
             const Text('Everybody Can Train.'),
             SizedBox(height: MediaQuery.of(context).size.height * .4),
             TextButton(
-              onPressed: () {},
+              onPressed: () => context.goNamed('onboard'),
               style: TextButton.styleFrom(
                 backgroundColor: Colors.white,
                 textStyle: const TextStyle(

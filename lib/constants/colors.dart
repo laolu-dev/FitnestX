@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
 class AppColor {
-  static const pGradOne = Color.fromRGBO(146, 163, 253, 1);
-  static const pGradTwo = Color.fromRGBO(156, 206, 255, 1);
-  static const black = Color.fromRGBO(29, 22, 23, 1);
+  static const pGradOne = Color(0xFF92A3FD);
+  static const pGradTwo = Color(0xFF9DCEFF);
+  static const black = Color(0xFF1D1517);
+  static const gray = Color(0xFF7B6F72);
+
+  static const gradientOne = [
+    pGradTwo,
+    pGradOne,
+  ];
 }
