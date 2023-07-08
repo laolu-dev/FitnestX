@@ -1,3 +1,5 @@
+import 'package:go_router/go_router.dart';
+
 import 'widgets/button.dart';
 import 'widgets/onboard/page_four.dart';
 import 'widgets/onboard/page_one.dart';
@@ -27,13 +29,14 @@ class _OnboardingState extends State<Onboarding>
 
   void changeBoardContent() {
     _index++;
-    _angle++;
+    _index > 0 ? _angle++ : _angle = 0;
 
-    debugPrint(_controller.isAnimating.toString());
     setState(() {});
     if (_index > 3) {
       _index = 0;
       _angle = 1;
+
+      context.goNamed('signup');
     }
   }
 
@@ -56,8 +59,6 @@ class _OnboardingState extends State<Onboarding>
 
   @override
   void dispose() {
-    _index = 0;
-    _angle = 1;
     _controller.dispose();
     super.dispose();
   }

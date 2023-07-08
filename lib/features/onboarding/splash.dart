@@ -1,17 +1,12 @@
 import '../../constants/assets.dart';
 import '../../constants/colors.dart';
-import '../../utils/widgets/button.dart';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class Splash extends StatefulWidget {
+class Splash extends StatelessWidget {
   const Splash({super.key});
 
-  @override
-  State<Splash> createState() => _SplashState();
-}
-
-class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,9 +14,7 @@ class _SplashState extends State<Splash> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: AppColor.gradientOne
-          ),
+          gradient: LinearGradient(colors: AppColor.gradientOne),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
