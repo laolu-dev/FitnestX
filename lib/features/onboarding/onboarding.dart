@@ -1,5 +1,6 @@
-import 'package:go_router/go_router.dart';
 
+
+import '../auth/screens/signup.dart';
 import 'widgets/button.dart';
 import 'widgets/onboard/page_four.dart';
 import 'widgets/onboard/page_one.dart';
@@ -8,6 +9,7 @@ import 'widgets/onboard/page_two.dart';
 import 'package:flutter/material.dart';
 
 class Onboarding extends StatefulWidget {
+  static String id = '/splash/onboard';
   const Onboarding({super.key});
 
   @override
@@ -36,7 +38,7 @@ class _OnboardingState extends State<Onboarding>
       _index = 0;
       _angle = 1;
 
-      context.goNamed('signup');
+      Navigator.of(context).pushNamed(Signup.id);
     }
   }
 
@@ -49,12 +51,12 @@ class _OnboardingState extends State<Onboarding>
       vsync: this,
       duration: const Duration(seconds: 1),
     );
-    anim = Tween<double>(begin: 1, end: 4).animate(_controller)
-      ..addListener(() {
-        setState(() {
-          _angle = _controller.value;
-        });
-      });
+    // anim = Tween<double>(begin: 1, end: 4).animate(_controller)
+    //   ..addListener(() {
+    //     setState(() {
+    //       _angle = _controller.value;
+    //     });
+    //   });
   }
 
   @override

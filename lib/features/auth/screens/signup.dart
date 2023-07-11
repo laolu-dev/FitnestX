@@ -1,13 +1,15 @@
-import 'package:fitnextx/constants/assets.dart';
-import 'package:fitnextx/constants/colors.dart';
-import 'package:fitnextx/features/auth/widgets/textfield.dart';
-import 'package:fitnextx/utils/widgets/button.dart';
+import '../../../constants/assets.dart';
+import '../../../constants/colors.dart';
+import 'login.dart';
+import 'profile.dart';
+import '../widgets/textfield.dart';
+import '../../../utils/widgets/button.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
 
 class Signup extends StatefulWidget {
+  static String id = '/splash/onboard/signup';
   const Signup({super.key});
 
   @override
@@ -46,7 +48,7 @@ class _SignupState extends State<Signup> {
     _loginRecognizer = TapGestureRecognizer()
       ..onTap = () {
         HapticFeedback.lightImpact();
-        context.goNamed('login');
+        Navigator.of(context).pushNamed(Login.id);
       };
     super.initState();
   }
@@ -159,7 +161,7 @@ class _SignupState extends State<Signup> {
                         _formKey.currentState!.save();
                         (_formKey.currentState!.validate() &&
                                 _acceptedTerms != false)
-                            ? context.goNamed('profile')
+                            ? Navigator.of(context).pushNamed(ProfileDetails.id)
                             : ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text('Incomplete information'),

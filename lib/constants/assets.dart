@@ -8,7 +8,7 @@ class Assets {
   static String get calendar => "assets/icons/iconpack/calendar.png";
   static String get gender => "assets/icons/iconpack/gender.png";
   static String get height => "assets/icons/iconpack/height.png";
-   static String get weight => "assets/icons/iconpack/weight.png";
+  static String get weight => "assets/icons/iconpack/weight.png";
   static String get hide => "assets/icons/iconpack/hide.png";
   static String get lock => "assets/icons/iconpack/lock.png";
   static String get mail => "assets/icons/iconpack/mail.png";
@@ -29,4 +29,6 @@ class Assets {
   static String get welcome => "assets/images/welcome.png";
   static String get skipper => "assets/images/skipper.png";
   static String get weightlifter => "assets/images/weightlifter.png";
+  //Auth Screen Vector
+  static String get welcomeVector => 'assets/illustrations/welcome.png';
 }

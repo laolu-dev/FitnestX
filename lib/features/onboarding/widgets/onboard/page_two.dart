@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
+
 import '../../../../constants/assets.dart';
 import '../../../../constants/colors.dart';
-
 import '../clip_path/clip_two.dart';
-import 'package:flutter/material.dart';
 
 class BoardTwo extends StatelessWidget {
   const BoardTwo({super.key});

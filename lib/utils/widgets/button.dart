@@ -17,9 +17,7 @@ class AppButton extends StatelessWidget {
         boxShadow: const [
           BoxShadow(offset: Offset(6, 7), blurRadius: 8, color: AppColor.shadow)
         ],
-        gradient: const LinearGradient(
-          colors: AppColor.gradientOne,
-        ),
+        gradient: const LinearGradient(colors: AppColor.gradientOne),
       ),
       child: TextButton(
         onPressed: onPressed,

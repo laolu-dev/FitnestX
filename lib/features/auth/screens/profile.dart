@@ -1,12 +1,15 @@
-import 'package:fitnextx/constants/assets.dart';
-import 'package:fitnextx/constants/colors.dart';
-import 'package:fitnextx/features/auth/widgets/clip_path/auth_clip_one.dart';
-import 'package:fitnextx/features/auth/widgets/textfield.dart';
-import 'package:fitnextx/utils/widgets/button.dart';
-import 'package:fitnextx/utils/widgets/button_two.dart';
+import '../../../constants/assets.dart';
+import '../../../constants/colors.dart';
+import '../../../constants/logger.dart';
+import 'goals.dart';
+import '../widgets/auth_clip.dart';
+import '../widgets/textfield.dart';
+import '../../../utils/widgets/button.dart';
+import '../../../utils/widgets/button_two.dart';
 import 'package:flutter/material.dart';
 
 class ProfileDetails extends StatefulWidget {
+  static String id = '/profile';
   const ProfileDetails({super.key});
 
   @override
@@ -16,13 +19,22 @@ class ProfileDetails extends StatefulWidget {
 class _ProfileDetailsState extends State<ProfileDetails> {
   late TextEditingController _weight;
   late TextEditingController _height;
-  late String _weightUnit;
-  late String _heightUnit;
+  late GlobalKey<FormState> _profileForm;
+  late bool _weightUnit;
+  late bool _heightUnit;
   late String _dob;
+
+  final List<DropdownMenuItem<String>> _genderList = [
+    const DropdownMenuItem(value: 'Male', child: Text('Male')),
+    const DropdownMenuItem(value: 'Female', child: Text('Female'))
+  ];
 
   @override
   void initState() {
     _dob = 'Date of Birth';
+    _weightUnit = true;
+    _heightUnit = true;
+    _profileForm = GlobalKey<FormState>();
     _weight = TextEditingController();
     _height = TextEditingController();
     super.initState();
@@ -30,6 +42,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
 
   @override
   void dispose() {
+    _profileForm.currentState!.dispose();
     _weight.dispose();
     _height.dispose();
     super.dispose();
@@ -81,74 +94,119 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                 const SizedBox(height: 30),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Column(
-                    children: [
-                      // AppTextField(
-                      //   onTap: () {},
-                      //   hint: 'Choose Gender',
-                      //   icon: Assets.gender,
-                      // ),
-                      GestureDetector(
-                        onTap: () async {
-                          final dob = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1970),
-                            lastDate: DateTime(2100),
-                          );
-                          setState(() {
-                            _dob = '${dob!.day}/${dob.month}/${dob.year}';
-                          });
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.only(bottom: 15),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 12),
-                          decoration: BoxDecoration(
-                              color: AppColor.border,
-                              borderRadius: BorderRadius.circular(14)),
-                          child: Row(
-                            children: [
-                              Image.asset(Assets.calendar),
-                              const SizedBox(width: 10),
-                              Expanded(child: Text(_dob))
-                            ],
+                  child: Form(
+                    key: _profileForm,
+                    child: Column(
+                      children: [
+                        DropdownButtonFormField(
+                          value: 'Male',
+                          items: _genderList,
+                          onChanged: (value) {
+                            logger.d("Current gender: $value");
+                          },
+                          borderRadius: BorderRadius.circular(22),
+                          icon: const Icon(Icons.keyboard_arrow_down),
+                          decoration: InputDecoration(
+                            prefixIcon: Image.asset(Assets.gender,
+                                width: 18, height: 18),
+                            fillColor: AppColor.border,
+                            filled: true,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(22),
+                            ),
                           ),
                         ),
-                      ),
-                      Row(
-                        children: [
-                          Flexible(
-                            child: AppTextField(
-                              controller: _weight,
-                              icon: Assets.height,
-                              keyboard: TextInputType.number,
-                              hint: 'Your Weight',
-                              onTap: () {},
+                        GestureDetector(
+                          onTap: () async {
+                            final dob = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1970),
+                              lastDate: DateTime(2100),
+                            );
+                            var dobTwo = dob ?? DateTime(2000, 01, 01);
+                            setState(() {
+                              _dob =
+                                  '${dobTwo.day}/${dobTwo.month}/${dobTwo.year}';
+                            });
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only(bottom: 15, top: 15),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 12),
+                            decoration: BoxDecoration(
+                                color: AppColor.border,
+                                borderRadius: BorderRadius.circular(14)),
+                            child: Row(
+                              children: [
+                                Image.asset(Assets.calendar),
+                                const SizedBox(width: 10),
+                                Expanded(child: Text(_dob))
+                              ],
                             ),
                           ),
-                          const SizedBox(width: 15),
-                          AppButtonTwo(onPressed: () {}, buttonText: 'KG')
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Flexible(
-                            child: AppTextField(
-                              controller: _height,
-                              icon: Assets.height,
-                              keyboard: TextInputType.number,
-                              hint: 'Your Height',
-                              onTap: () {},
+                        ),
+                        Row(
+                          children: [
+                            Flexible(
+                              child: AppTextField(
+                                controller: _weight,
+                                icon: Assets.height,
+                                keyboard: TextInputType.number,
+                                hint: 'Your Weight',
+                                onTap: () {},
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 15),
-                          AppButtonTwo(onPressed: () {}, buttonText: 'CM')
-                        ],
-                      ),
-                      const SizedBox(height: 30),
-                      AppButton(onPressed: () {}, buttonText: 'Next >')
-                    ],
+                            const SizedBox(width: 15),
+                            AppButtonTwo(
+                                onPressed: () =>
+                                    setState(() => _weightUnit = !_weightUnit),
+                                buttonText: _weightUnit ? 'KG' : 'LB')
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Flexible(
+                              child: AppTextField(
+                                controller: _height,
+                                icon: Assets.height,
+                                keyboard: TextInputType.number,
+                                hint: 'Your Height',
+                                onTap: () {},
+                                validator: (value) {
+                                  // if (value!.isEmpty) {
+                                  //   return 'Enter your height';
+                                  // }
+                                  return null;
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 15),
+                            AppButtonTwo(
+                                onPressed: () =>
+                                    setState(() => _heightUnit = !_heightUnit),
+                                buttonText: _heightUnit ? 'CM' : 'FT')
+                          ],
+                        ),
+                        const SizedBox(height: 30),
+                        AppButton(
+                            onPressed: () {
+                              if (_profileForm.currentState!.validate()) {
+                                Navigator.of(context).pushNamed(Goals.id);
+                              }
+                              //  else {
+                              //   ScaffoldMessenger.of(context).showSnackBar(
+                              //     const SnackBar(
+                              //       content: Text('Incomplete information'),
+                              //       duration: Duration(milliseconds: 500),
+                              //     ),
+                              //   );
+                              // }
+                            },
+                            buttonText: 'Next >')
+                      ],
+                    ),
                   ),
                 )
               ],

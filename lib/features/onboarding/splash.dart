@@ -1,10 +1,13 @@
+import 'onboarding.dart';
+
 import '../../constants/assets.dart';
 import '../../constants/colors.dart';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+
 
 class Splash extends StatelessWidget {
+  static String id = '/';
   const Splash({super.key});
 
   @override
@@ -24,7 +27,7 @@ class Splash extends StatelessWidget {
             const Text('Everybody Can Train.'),
             SizedBox(height: MediaQuery.of(context).size.height * .4),
             TextButton(
-              onPressed: () => context.goNamed('onboard'),
+              onPressed: () => Navigator.of(context).pushNamed(Onboarding.id),
               style: TextButton.styleFrom(
                 backgroundColor: Colors.white,
                 textStyle: const TextStyle(
